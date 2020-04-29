@@ -13,5 +13,6 @@ python3 migrate.py <XenServer address> <username> <password> <uuid of vm to migr
 ## Limitations
 * only one mac adress is used
 * only works with bios boot
+* only one socket is used
 * vmbr0 is the default network
 * bootdrive is not set
