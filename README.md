@@ -1,12 +1,12 @@
 # xen2proxmox
 
 ## Installation
-1. copy xe to proxmox
+1. copy xe from XenServer to proxmox
 2. install stunnel via `apt install stunnel`
 
 ## Usage 
 ```bash
-python3 migrate.py <xenserver address> <username> <password> <uuid of vm to migrate> <pve target storage>
+python3 migrate.py <XenServer address> <username> <password> <uuid of vm to migrate> <pve target storage>
 ```
 
 
