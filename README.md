@@ -1,3 +1,3 @@
 # xen2proxmox
-copy xe to proxmox
-install stunnel via `apt install stunnel`
+1. copy xe to proxmox
+2. install stunnel via `apt install stunnel`
