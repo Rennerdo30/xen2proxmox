@@ -103,7 +103,7 @@ def get_vmid():
 
 def create_proxmox_vm(metadata):
     vmid = get_vmid()
-    vm_mem = int(metadata['vm_mem_count']) / 1024 / 1024
+    vm_mem = int(int(metadata['vm_mem_count']) / 1024 / 1024)
     cmd = ['qm', 'create', str(vmid), "--sockets", "1", "--cores", metadata["vm_cpu_count"], "--memory", str(vm_mem),
            "--name", metadata["vm_name"], "--description", metadata["vm_desc"], "--agent", "enabled=1,fstrim_cloned_disks=1",
            "--net0", "model=e1000,bridge=vmbr0,macaddr=" + metadata["vm_mac"], "--scsihw", "virtio-scsi-pci"]
