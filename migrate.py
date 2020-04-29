@@ -117,7 +117,7 @@ def import_disks(vmid, disks, storage):
         if os.path.isfile(disk + '.raw'):
             cmd = ['qm', 'importdisk', str(vmid), disk + '.raw', storage]
             subprocess.check_output(cmd, stderr=None)
-            cmd = ['qm', 'set', '--scsi' +
+            cmd = ['qm', 'set', str(vmid),'--scsi' +
                    str(idx), storage + ':vm-' + str(vmid) + '-disk-' + str(idx) + '.raw']
             subprocess.check_output(cmd, stderr=None)
             print("Imported " + disk + " to " + storage + " for " + vmid)
