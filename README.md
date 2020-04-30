@@ -16,3 +16,5 @@ python3 migrate.py <XenServer address> <username> <password> <uuid of vm to migr
 * only one socket is used
 * vmbr0 is the default network
 * bootdrive is not set
+
+# Special Thanks to [deepbluev7](https://github.com/deepbluev7) for finding the nessescary xe commands
