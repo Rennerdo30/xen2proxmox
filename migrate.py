@@ -88,8 +88,10 @@ def export_disks(disks):
     for disk in disks:
         cmd = [XE_PATH, '-s', XE_SERVER, '-u', XE_USERNAME, '-pw', XE_PASSWORD, 'vdi-export',
                'uuid=' + disk, 'filename=' + disk + '.raw', 'format=raw', '--progress']
-        output = subprocess.check_output(cmd, stderr=None)
-        print(output)
+        process = subprocess.Popen(cmd, stdout=None, stderr=None)
+        process.communicate()
+        process.wait()
+        
         if os.path.isfile(disk + '.raw'):
             print("Exported " + disk)
         else:
@@ -118,8 +120,10 @@ def import_disks(vmid, disks, storage):
     for disk in disks:
         if os.path.isfile(disk + '.raw'):
             cmd = ['qm', 'importdisk', str(vmid), disk + '.raw', storage]
-            output = subprocess.check_output(cmd, stderr=None)
-            print(output)
+            process = subprocess.Popen(cmd, stdout=None, stderr=None)
+            process.communicate()
+            process.wait()
+            
             cmd = ['qm', 'set', str(vmid),'--scsi' +
                    str(idx), storage + ':vm-' + str(vmid) + '-disk-' + str(idx)]
             output = subprocess.check_output(cmd, stderr=None)
