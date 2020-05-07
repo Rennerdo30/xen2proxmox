@@ -88,7 +88,8 @@ def export_disks(disks):
     for disk in disks:
         cmd = [XE_PATH, '-s', XE_SERVER, '-u', XE_USERNAME, '-pw', XE_PASSWORD, 'vdi-export',
                'uuid=' + disk, 'filename=' + disk + '.raw', 'format=raw', '--progress']
-        subprocess.check_output(cmd, stderr=None)
+        output = subprocess.check_output(cmd, stderr=None)
+        print(output)
         if os.path.isfile(disk + '.raw'):
             print("Exported " + disk)
         else:
@@ -107,7 +108,8 @@ def create_proxmox_vm(metadata):
     cmd = ['qm', 'create', str(vmid), "--sockets", "1", "--cores", metadata["vm_cpu_count"], "--memory", str(vm_mem),
            "--name", metadata["vm_name"], "--description", metadata["vm_desc"], "--agent", "enabled=1,fstrim_cloned_disks=1",
            "--net0", "model=e1000,bridge=vmbr0,macaddr=" + metadata["vm_mac"], "--scsihw", "virtio-scsi-pci"]
-    subprocess.check_output(cmd, stderr=None)
+    output = subprocess.check_output(cmd, stderr=None)
+    print(output)
     return vmid
 
 
@@ -116,10 +118,12 @@ def import_disks(vmid, disks, storage):
     for disk in disks:
         if os.path.isfile(disk + '.raw'):
             cmd = ['qm', 'importdisk', str(vmid), disk + '.raw', storage]
-            subprocess.check_output(cmd, stderr=None)
+            output = subprocess.check_output(cmd, stderr=None)
+            print(output)
             cmd = ['qm', 'set', str(vmid),'--scsi' +
                    str(idx), storage + ':vm-' + str(vmid) + '-disk-' + str(idx)]
-            subprocess.check_output(cmd, stderr=None)
+            output = subprocess.check_output(cmd, stderr=None)
+            print(output)
             print("Imported " + disk + " to " + storage + " for " + vmid)
         else:
             print("Could not import " + disk)
